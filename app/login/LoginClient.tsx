@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -92,7 +93,7 @@ export default function LoginClient() {
       <div className={styles.card}>
         {/* Brand */}
         <div className={styles.brand}>
-          <div className={styles.brandIcon}>R</div>
+          <Image src="/logo.png" width={44} height={44} alt="RAISE Now" className={styles.brandIcon} />
           <div>
             <div className={styles.brandName}>RAISE Now</div>
             <div className={styles.brandTagline}>Resume Analysis Is Super Easy Now</div>

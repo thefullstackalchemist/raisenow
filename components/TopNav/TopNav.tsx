@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
@@ -51,7 +52,7 @@ export default function TopNav() {
       <div className={styles.inner}>
         {/* Brand */}
         <Link href="/" className={styles.brand}>
-          <span className={styles.brandIcon}>R</span>
+          <Image src="/logo.png" width={34} height={34} alt="RAISE Now" className={styles.brandIcon} />
           <div className={styles.brandText}>
             <span className={styles.brandName}>RAISE Now</span>
             <span className={styles.brandTagline}>Resume Analysis Is Super Easy Now</span>

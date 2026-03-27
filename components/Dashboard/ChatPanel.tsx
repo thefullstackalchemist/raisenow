@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useProfile } from '@/lib/ProfileContext';
 import { ChatMessage } from '@/lib/types';
@@ -233,10 +234,7 @@ export default function ChatPanel() {
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.aiAvatar}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
-            <path d="M9 21h6"/><path d="M12 17v4"/>
-          </svg>
+          <Image src="/logo.png" width={24} height={24} alt="RAISE" />
         </div>
         <div>
           <div className={styles.headerTitle}>RAISE Assistant</div>
@@ -286,7 +284,7 @@ export default function ChatPanel() {
         {dataLoaded && messages.map(msg => (
           <div key={msg.id} className={`${styles.msgRow} ${msg.role === 'user' ? styles.userRow : styles.aiRow}`}>
             {msg.role === 'assistant' && (
-              <div className={styles.aiAvatarSmall}>R</div>
+              <Image src="/logo.png" width={28} height={28} alt="RAISE" className={styles.aiAvatarSmall} />
             )}
             <div className={`${styles.bubble} ${msg.role === 'user' ? styles.userBubble : styles.aiBubble}`}>
               <div
@@ -302,7 +300,7 @@ export default function ChatPanel() {
 
         {streamingContent !== null && (
           <div className={`${styles.msgRow} ${styles.aiRow}`}>
-            <div className={styles.aiAvatarSmall}>R</div>
+            <Image src="/logo.png" width={28} height={28} alt="RAISE" className={styles.aiAvatarSmall} />
             <div className={`${styles.bubble} ${styles.aiBubble}`}>
               <div
                 className={`${styles.bubbleText} ${styles.streaming}`}
@@ -314,7 +312,7 @@ export default function ChatPanel() {
 
         {showTyping && streamingContent === null && (
           <div className={`${styles.msgRow} ${styles.aiRow}`}>
-            <div className={styles.aiAvatarSmall}>R</div>
+            <Image src="/logo.png" width={28} height={28} alt="RAISE" className={styles.aiAvatarSmall} />
             <div className={`${styles.bubble} ${styles.aiBubble} ${styles.typingBubble}`}>
               <span className={styles.dot} />
               <span className={styles.dot} />
