@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RAISE Now
+
+**RAISE** (Resume AI Socratic Engine) is an AI-powered resume builder that coaches you through building a complete, gap-free resume using a Socratic conversation approach — asking targeted questions one at a time rather than dumping a form on you.
+
+## Features
+
+- **Socratic AI Chat** — RAISE asks focused questions, detects timeline gaps in your career history, and extracts structured resume data from natural conversation
+- **Live Streaming Responses** — AI replies stream token-by-token for a natural chat feel
+- **Resume Preview** — Real-time preview across multiple templates (Classic, Modern, Minimal, Executive)
+- **Career Insights** — Skill breakdown, role-fit radar, and gap analysis against target roles
+- **Completeness Panel** — Detects missing sections and lets you jump straight to fixing them
+- **Auth & Quota** — NextAuth credential auth with per-user daily message limits
+
+## Tech Stack
+
+- **Framework** — Next.js 15 (App Router)
+- **AI** — OpenRouter API (OpenAI-compatible, model-swappable)
+- **Database** — MongoDB Atlas
+- **Auth** — NextAuth.js
+- **Styling** — CSS Modules with custom design tokens
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone & install
+
+```bash
+git clone git@github.com:thefullstackalchemist/raisenow.git
+cd raisenow
+npm install
+```
+
+### 2. Configure environment
+
+```bash
+cp .env.example .env.local
+```
+
+Fill in `.env.local` with your credentials:
+
+| Variable | Description |
+|---|---|
+| `OPENROUTER_API_KEY` | API key from [openrouter.ai](https://openrouter.ai) |
+| `OPENROUTER_BASE_URL` | OpenRouter base URL (default provided) |
+| `OPENROUTER_MODEL` | Model slug — swap freely (e.g. `openai/gpt-4o`) |
+| `MONGODB_URI` | MongoDB Atlas connection string |
+| `NEXTAUTH_SECRET` | Random secret for JWT signing (`openssl rand -base64 32`) |
+| `NEXTAUTH_URL` | App base URL (`http://localhost:3000` for local dev) |
+
+### 3. Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  api/          # Route handlers (chat, auth, profile, insights, quota…)
+  resume/       # Resume builder page
+  insights/     # Career insights page
+  login/        # Auth page
+  templates/    # Template picker page
+components/
+  Dashboard/    # ChatPanel, CompletenessPanel, AccordionPanel
+  Resume/       # ResumePreview, templates, ColorThemePicker
+  Insights/     # RadarChart, SkillBreakdown, GapCard…
+lib/
+  services/     # AIService, profileDbService, quotaService…
+  constants/    # System prompts, AI config, quota limits
+services/       # Client-side API fetch helpers
+utils/          # Field detection, markdown renderer, resume helpers
+```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+Deploy to Vercel with zero config — it picks up the App Router automatically. Set all `.env.local` variables as environment variables in your Vercel project settings.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> **Never commit `.env.local`** — it is gitignored. Use `.env.example` as the reference template.

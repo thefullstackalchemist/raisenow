@@ -1,0 +1,32 @@
+.layout {
+  display: flex;
+  height: calc(100vh - var(--nav-height));
+  overflow: hidden;
+}
+
+.left {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.right {
+  width: 360px;
+  min-width: 320px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column;
+    height: auto;
+    overflow: auto;
+  }
+
+  .right {
+    width: 100%;
+    min-width: unset;
+  }
+}
