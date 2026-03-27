@@ -5,7 +5,7 @@ import Image from 'next/image';
 import styles from './SurveyModal.module.css';
 
 interface Props {
-  trigger: 'login' | 'quota_exhausted';
+  trigger: 'quota_exhausted';
   onClose: () => void;
 }
 
@@ -50,14 +50,10 @@ export default function SurveyModal({ trigger, onClose }: Props) {
               <Image src="/logo.png" width={36} height={36} alt="RAISE Now" className={styles.logo} />
               <div>
                 <div className={styles.title}>
-                  {trigger === 'quota_exhausted'
-                    ? "You've hit today's limit"
-                    : 'Quick question before you dive in'}
+                  {"You've hit today's limit"}
                 </div>
                 <div className={styles.subtitle}>
-                  {trigger === 'quota_exhausted'
-                    ? "Help us build a Pro plan worth paying for — takes 30 seconds."
-                    : "Help us shape RAISE Now Pro — 3 quick questions."}
+                  {"Help us build a Pro plan worth paying for — takes 30 seconds."}
                 </div>
               </div>
               <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
@@ -146,7 +142,7 @@ export default function SurveyModal({ trigger, onClose }: Props) {
               Your feedback directly shapes what we build next. We appreciate it.
             </div>
             <button className={styles.submitBtn} onClick={onClose}>
-              {trigger === 'quota_exhausted' ? 'Got it, see you tomorrow' : 'Let\'s build my resume'}
+              {'Got it, see you tomorrow'}
             </button>
           </div>
         )}
