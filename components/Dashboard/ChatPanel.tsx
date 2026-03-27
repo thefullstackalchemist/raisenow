@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 import { useProfile } from '@/lib/ProfileContext';
 import { ChatMessage } from '@/lib/types';
 import { useSession } from 'next-auth/react';
@@ -108,8 +109,10 @@ export default function ChatPanel({ onQuotaExhausted }: ChatPanelProps) {
     sendMessageStream(allMessages, profile, {
       onDelta: (text) => {
         accumulated += text;
-        setLoading(false);
-        setStreamingContent(accumulated);
+        flushSync(() => {
+          setLoading(false);
+          setStreamingContent(accumulated);
+        });
       },
       onDone: (update, remaining) => {
         if (typeof remaining === 'number') setQuotaRemaining(remaining);
