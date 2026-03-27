@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { ProfileProvider } from '@/lib/ProfileContext';
 import TopNav from '@/components/TopNav/TopNav';
+import NoticeBanner from '@/components/NoticeBanner/NoticeBanner';
 import ThemeScript from '@/components/ThemeScript';
 import SessionWrapper from '@/components/SessionWrapper';
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ProfileProvider>
             <TopNav />
             <main style={{ paddingTop: 'var(--nav-height)' }}>
+              <NoticeBanner />
               {children}
             </main>
           </ProfileProvider>
