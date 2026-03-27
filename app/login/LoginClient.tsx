@@ -3,11 +3,9 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
 
 export default function LoginClient() {
-  const router = useRouter();
   const [tab, setTab] = useState<'login' | 'register'>('login');
 
   // Login state
@@ -39,8 +37,7 @@ export default function LoginClient() {
     setLoginLoading(false);
 
     if (res?.ok) {
-      router.push('/');
-      router.refresh();
+      window.location.href = '/';
     } else {
       setLoginError('Invalid email or password. Please try again.');
     }
@@ -74,8 +71,7 @@ export default function LoginClient() {
         password: regPassword,
         redirect: false,
       });
-      router.push('/');
-      router.refresh();
+      window.location.href = '/';
     } else {
       setRegError(data.error || 'Registration failed');
     }
