@@ -16,7 +16,11 @@ function genId() {
   return Math.random().toString(36).slice(2, 10);
 }
 
-export default function ChatPanel() {
+interface ChatPanelProps {
+  onQuotaExhausted?: () => void;
+}
+
+export default function ChatPanel({ onQuotaExhausted }: ChatPanelProps) {
   const { profile, addMessage, messages, setActiveField, applyAIUpdate, dataLoaded, pendingTrigger, setPendingTrigger } = useProfile();
   const { data: session } = useSession();
   const [input, setInput] = useState('');
@@ -62,6 +66,15 @@ export default function ChatPanel() {
       .catch(() => {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataLoaded]);
+
+  // Fire survey when quota first hits zero
+  const quotaExhaustedFired = useRef(false);
+  useEffect(() => {
+    if (quotaRemaining === 0 && !quotaExhaustedFired.current) {
+      quotaExhaustedFired.current = true;
+      onQuotaExhausted?.();
+    }
+  }, [quotaRemaining, onQuotaExhausted]);
 
   // Fire a trigger message from the completeness panel
   useEffect(() => {
